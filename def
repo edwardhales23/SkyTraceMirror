@@ -1,0 +1,24 @@
+from hasher import hash_line
+from log_reader import read_log_lines
+
+def validate_chain(path: str):
+    prev_hash = "0" * 64
+    valid = True
+
+    for line in read_log_lines(path):
+        expected_hash = hash_line(prev_hash, line)
+        actual_hash, _ = line.strip().split(" | ", 1)
+        if expected_hash != actual_hash:
+            print(f"Tampering detected! Expected {expected_hash}, found {actual_hash}")
+            valid = False
+        prev_hash = actual_hash
+
+    return valid
+
+if __name__ == "__main__":
+    import sys
+    if len(sys.argv) < 2:
+        print("Usage: python validator.py <chained_log_file>")
+    else:
+        result = validate_chain(sys.argv[1])
+        print("Validation passed" if result else "Validation failed")
