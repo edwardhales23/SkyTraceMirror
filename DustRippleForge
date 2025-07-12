@@ -1,0 +1,13 @@
+
+---
+
+### **2. DustRippleForge**  
+*Modular synthetic data generator with context-aware templates.*
+
+**Файлы:**
+- `README.md`  
+- `generator/core.py`  
+- `generator/templater.py`  
+- `templates/user_profile.yaml`
+
+README.md:
